@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v6.js"></script>
+
+    <title>NuggetSpin</title>
+    <style>
+        html,
+        body {
+            background-color: #fff;
+            font-size: calc(1728vw / 1728);
+        }
+
+        h1 {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 500;
+            font-size: 2.4rem;
+            margin: 0;
+        }
+
+        h2 {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 500;
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        h3 {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 500;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        p,
+        li {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+        }
+
+        a {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            color: rgb(0, 102, 204);
+        }
+
+        .card_3col {
+            background-color: #fbfbfb;
+            width: 26%;
+            height: 20rem;
+            border-radius: 2rem;
+            padding: 1.4rem;
+            transform: scale(1);
+        }
+
+        .card_2col {
+            background-color: #f5f5f5;
+            width: 36%;
+            /* height: 12rem; */
+            border-radius: 2rem;
+            padding: 1.4rem;
+            transform: scale(1);
+        }
+
+        .card_popup {
+            background-color: #fbfbfb;
+            width: 40%;
+            /* height: 20rem; */
+            border-radius: 1rem;
+            padding: 1.4rem;
+            transform: scale(1);
+            padding: 3rem;
+        }
+
+        .blurGlass {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(1rem);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="model_popup" class="blurGlass" style="opacity: 0; display: none;">
+        <div class="card_popup">
+            <div class="close-icon">
+                <img style="width: 3rem;" src="image/close_icon.svg" alt="">
+            </div>
+            <h1>Time to get 3D printed!</h2>
+                <p>You can find CAD files for each component on our <a href="https://www.github.com"
+                        target="_blank">GitHub
+                        repository</a></p>
+                <p style="margin-bottom: 1.4rem;">Or, directly download STL files here:</p>
+                <div style="display: flex; width: 100%; justify-content: space-around;">
+                    <div class="card_2col">
+                        <img src="image/model_icon.png" alt="" style="width: 100%;">
+                        <h3>End effector - Stepper motor holder</h3>
+                    </div>
+                    <div class="card_2col">
+                        <img src="image/model_icon.png" alt="" style="width: 100%;">
+                        <h3>Container Box - battery, PCB</h3>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div id="electronic_popup" class="blurGlass" style="opacity: 0; display: none;">
+        <div class="card_popup">
+            <div class="close-icon">
+                <img style="width: 3rem;" src="image/close_icon.svg" alt="">
+            </div>
+            <h1>Magic time! Let it Spin!</h2>
+                <p>Yes, we directly use off-the-shelf breakout boards to put it on our PCB. It might sounds silly, but
+                    luckily we only have 2 breakout boards, which is acceptable. In the future we might come up with a
+                    true "PCB" for this project. But for now, I think it's quite small enough.</p>
+                <p>You will need:</p>
+                <ul>
+                    <li><strong>28BYJ-48 stepper motor</strong> (<a href="https://www.adafruit.com/product/858"
+                            target="_blank">Adafruit
+                            link</a>).
+                        This is the smallest stepper motor we can find with enough torque for our applications.</li>
+                    <li><strong>Studio XIAO ESP32S3</strong> (<a
+                            href="https://www.seeedstudio.com/XIAO-ESP32S3-p-5627.html" target="_blank">Seeed
+                            link</a>). You can also use other ESP chips, just make sure it supports WiFi
+                        communication. The size of the chip and thus our designed PCB may vary. However, you can use
+                        <a href="https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html" target="_blank">ESP32C3</a>
+                        from Seeed
+                        Studio, which is cheaper and the pin layouts are identical to ESP32S3.
+                    </li>
+                    <li><strong>eBoot Mini MP1584EN</strong> (<a
+                            href="https://www.amazon.com/gp/product/B07RVG34WR/ref=ox_sc_act_title_5?smid=A2NZAVPM3IAH4E&psc=1 target="
+                            _blank">Amazon
+                            link</a>). This is possibly the smallest chip we can find to convert 9V DC to 5V DC (to
+                        power the ESP32S3).
+                    </li>
+                    <li>
+                        <strong>TB6612 chip</strong> (We directly used the breakout board of this chip from <a
+                            href="https://www.adafruit.com/product/2448" target="_blank">Adafruit</a>). This is used to
+                        drive one
+                        unipolar/bipolar stepper motor.
+                    </li>
+                    <li>
+                        <strong>9V Rechargeable Lithium Batteires</strong> (<a
+                            href="https://www.amazon.com/HW-Rechargeable-Batteires-Batteries-Microphone/dp/B0C331DXDS/ref=sr_1_2_sspa?crid=1UHG3KBFF6M2V&keywords=9v%2Bbattery%2Busb&qid=1700431329&sprefix=9v%2Bbattery%2Busbc%2Caps%2C174&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1"
+                            target="_blank">amazon
+                            link</a>). These batteries can directly be recharged using usb-c cable.
+                    </li>
+                </ul>
+
+                <p>diagram here</p>
+                <p>You can find PCB files on our <a href="https://www.github.com" target="_blank">GitHub
+                        repository</a></p>
+        </div>
+    </div>
+
+    <div id="assembly_popup" class="blurGlass" style="opacity: 0; display: none;">
+        <div class="card_popup">
+            <div class="close-icon">
+                <img style="width: 3rem;" src="image/close_icon.svg" alt="">
+            </div>
+            <h1>Abracadabra! Assemble yourself!</h2>
+                <p>You will need:</p>
+                <ul>
+                    <li>
+                        <strong>Gooseneck arm</strong> (<a
+                            href="https://www.amazon.com/PATIKIL-Microphone-Gooseneck-Universal-Multifunction/dp/B0BKQRDLRM/ref=sr_1_5?crid=FLNXNXR271RR&th=1">amazon
+                            link</a>). We used an 10'' long one, and tested it works well in most household settings.
+                        The arm comes with 2 M10 nuts, which will be very useful in the assembly process.
+                    </li>
+
+                    <li>
+                        screws to close the box, fix the pcb
+                    </li>
+                    <li>magnets</li>
+                    <li>3M VBH tape</li>
+                </ul>
+
+                <p>explosive diagram tutorial here (refer to jubilee)</p>
+
+        </div>
+    </div>
+
+    <div style="margin: 0 20rem 0 20rem;">
+        <h1 style="margin: 20rem 0 20rem 0;">NuggetSpin</h1>
+        <p>video here</p>
+        <h1 style="margin-bottom: 2rem;">Feeling lazy? We’re here to help.</h1>
+        <p>Scenario intro, with story boards</p>
+        <div style="margin-bottom: 8rem;"></div>
+
+        <h1 style="margin-bottom: 2rem;">Spin! Nuggets.</h1>
+        <p>Function intro, with sketch story boards</p>
+        <div style="margin-bottom: 8rem;"></div>
+
+        <h1 style="margin-bottom: 2rem;">Fully Open Source.</h1>
+        <div style="display: flex; width: 100%; justify-content: space-between;">
+            <div class="card_3col" id="model_card">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <h2>Models</h2>
+                    <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                </div>
+                <p>All parts are fabricatable using regular FDM 3D printers.</p>
+                <img src="image/model_icon.png" alt="" style="width: 100%;">
+            </div>
+            <div class="card_3col" id="electronic_card">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <h2>Electronic Magic</h2>
+                    <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                </div>
+
+                <p>Don't need electronic expertise, chips are all accessible online.</p>
+
+            </div>
+            <div class="card_3col" id="assembly_card">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <h2>Assembly</h2>
+                    <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                </div>
+                <p>Easy-Peasy. Assembled in 10 minutes.</p>
+                <img src="image/assembly_icon.png" alt="" style="width: 100%;">
+
+            </div>
+        </div>
+        <div style="padding-top: 20rem;"></div>
+
+    </div>
+
+    <script>
+        // card hover anim
+        d3.selectAll(".card_3col")
+            .on("mouseover", function () {
+                d3.select(this).transition().duration(250).style("transform", `scale(1.05)`);
+            })
+            .on("mouseout", function () {
+                d3.select(this).transition().duration(250).style("transform", `scale(1)`);
+            });
+
+        d3.selectAll(".card_2col")
+            .on("mouseover", function () {
+                d3.select(this).transition().duration(250).style("transform", `scale(1.05)`);
+            })
+            .on("mouseout", function () {
+                d3.select(this).transition().duration(250).style("transform", `scale(1)`);
+            });
+
+        // model card on_click
+        d3.select("#electronic_card")
+            .on("click", function () {
+                d3.select("#electronic_popup")
+                    .style("display", "flex")
+                    .transition()
+                    .duration(250)
+                    .style("opacity", 1)
+                document.body.style.overflowY = 'hidden';
+
+            })
+
+        // close model card
+        d3.select("#electronic_popup")
+            .on("click", function (event) {
+                if (event.target === this) {
+                    d3.select("#electronic_popup")
+                        .transition()
+                        .duration(250)
+                        .style("opacity", 0)
+                        .on("end", function () {
+                            d3.select(this).style("display", "none");
+                        })
+                    document.body.style.overflowY = 'auto';
+                }
+            })
+
+        // electronic card on_click
+        d3.select("#model_card")
+            .on("click", function () {
+                d3.select("#model_popup")
+                    .style("display", "flex")
+                    .transition()
+                    .duration(250)
+                    .style("opacity", 1)
+                document.body.style.overflowY = 'hidden';
+            })
+
+        // close electronic card
+        d3.select("#model_popup")
+            .on("click", function (event) {
+                if (event.target === this) {
+                    d3.select("#model_popup")
+                        .transition()
+                        .duration(250)
+                        .style("opacity", 0)
+                        .on("end", function () {
+                            d3.select(this).style("display", "none");
+                        })
+                    document.body.style.overflowY = 'auto';
+                }
+            })
+
+        // assembly card on_click
+        d3.select("#assembly_card")
+            .on("click", function () {
+                d3.select("#assembly_popup")
+                    .style("display", "flex")
+                    .transition()
+                    .duration(250)
+                    .style("opacity", 1)
+                document.body.style.overflowY = 'hidden';
+            })
+
+        // close electronic card
+        d3.select("#assembly_popup")
+            .on("click", function (event) {
+                if (event.target === this) {
+                    d3.select("#assembly_popup")
+                        .transition()
+                        .duration(250)
+                        .style("opacity", 0)
+                        .on("end", function () {
+                            d3.select(this).style("display", "none");
+                        })
+                    document.body.style.overflowY = 'auto';
+                }
+            })
+
+
+        // close icon card
+        d3.selectAll(".close-icon")
+            .on("click", function () {
+                d3.select("#model_popup")
+                    .transition()
+                    .duration(250)
+                    .style("opacity", 0)
+                    .on("end", function () {
+                        d3.select(this).style("display", "none");
+                    })
+                d3.select("#electronic_popup")
+                    .transition()
+                    .duration(250)
+                    .style("opacity", 0)
+                    .on("end", function () {
+                        d3.select(this).style("display", "none");
+                    })
+                d3.select("#assembly_popup")
+                    .transition()
+                    .duration(250)
+                    .style("opacity", 0)
+                    .on("end", function () {
+                        d3.select(this).style("display", "none");
+                    })
+                document.body.style.overflowY = 'auto';
+            })
+
+
+    </script>
+    <script>
+        // ban horizontal scroll
+        document.body.style.overflowX = 'hidden';
+    </script>
+
+</body>
+
+</html>
