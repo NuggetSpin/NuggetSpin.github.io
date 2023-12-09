@@ -60,6 +60,9 @@
             border-radius: 2rem;
             padding: 1.4rem;
             transform: scale(1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card_2col {
@@ -117,17 +120,17 @@
                 <p>You can find CAD files for each component on our <a href="https://www.github.com"
                         target="_blank">GitHub
                         repository</a></p>
-                <p style="margin-bottom: 1.4rem;">Or, directly download STL files here:</p>
+                <!-- <p style="margin-bottom: 1.4rem;">Or, directly download STL files here:</p>
                 <div style="display: flex; width: 100%; justify-content: space-around;">
                     <div class="card_2col">
-                        <img src="image/model_icon.png" alt="" style="width: 100%;">
+                        <img src="image/motor_holder_model.png" alt="" style="width: 100%;">
                         <h3>End effector - Stepper motor holder</h3>
                     </div>
                     <div class="card_2col">
                         <img src="image/model_icon.png" alt="" style="width: 100%;">
                         <h3>Container Box - battery, PCB</h3>
                     </div>
-                </div>
+                </div> -->
         </div>
     </div>
 
@@ -173,8 +176,6 @@
                             link</a>). These batteries can directly be recharged using usb-c cable.
                     </li>
                 </ul>
-
-                <p>diagram here</p>
                 <p>You can find PCB files on our <a href="https://www.github.com" target="_blank">GitHub
                         repository</a></p>
         </div>
@@ -194,78 +195,155 @@
                             link</a>). We used an 10'' long one, and tested it works well in most household settings.
                         The arm comes with 2 M10 nuts, which will be very useful in the assembly process.
                     </li>
-
-                    <li>
-                        screws to close the box, fix the pcb
-                    </li>
-                    <li>magnets</li>
-                    <li>3M VBH tape</li>
+                    <li>Four 10mm diameter * 2mm height magnets</li>
+                    <li>3M VBH tape to fix the holder onto the wall</li>
                 </ul>
-
-                <p>explosive diagram tutorial here (refer to jubilee)</p>
-
+                <!-- <p>explosive diagram tutorial here (refer to jubilee)</p> -->
+                <p>After assembly, upload the <a href="https://www.github.com">code</a> to ESP32.</p>
         </div>
     </div>
 
-    <div style="margin: 0 20rem 0 20rem;">
-        <div style="display: flex; padding: 20rem 0 20rem 0; align-items: center;">
-            <h1 style="margin-right: 1rem;">NuggetSpin</h1>
+    <div style="margin: 0 22rem 0 22rem;">
+        <div style="display: flex; padding: 20rem 0 0 0; align-items: center;">
+            <h1 style="margin-right: 1rem;">IComfort</h1>
             <img src="image/nugget_icon.png" alt="" style="height: fit-content; width: 4rem;">
         </div>
+        <p style="margin-bottom: 5rem;">A remote rotary knob control gadget</p>
 
-        <p>video here</p>
-        <h1 style="margin-bottom: 2rem;">Feeling lazy? We’re here to help.</h1>
-        <p>Scenario intro, with story boards</p>
+        <div style="padding: 0 0 16rem 0;">
+            <p>Contributors:</p>
+            <p style="color: gray;">Yuecheng Peng - hardware & software development, 3D-print enclosure design</p>
+            <p style="color: gray;">Krant Lee - 3D-print enclosure design and iteration, sketching, poster design</p>
+            <p style="color: gray;">Kate Chen - 3D-print enclosure design, poster design, product video</p>
+        </div>
+
+        <video width="100%" controls>
+            <source src="video/video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div style="margin-bottom: 8rem;"></div>
 
-        <h1 style="margin-bottom: 2rem;">Spin! Nuggets.</h1>
-        <p>Function intro, with sketch story boards</p>
+
+        <h1 style="margin-bottom: 2rem;">Description</h1>
+        <p>During cold winter mornings, many struggle to leave their warm beds due to darkness (closed blinds) and
+            coldness (air conditioning). This inconvenience disrupts comfort and wastes precious time, prompting us to
+            develop a user-friendly, reliable product prototype to remotely control and even set timers for blinds and
+            AC from anywhere. Therefore, we can use apps like HomeKit to set a comfortable environment which perfectly
+            match our daily life - after work, before waking up, before going to bed, etc.</p>
+        <img src="./image/description.png" alt="" style="width: 100%;">
+
         <div style="margin-bottom: 8rem;"></div>
 
-        <h1 style="margin-bottom: 2rem;">Your home, your call.</h1>
-        <p>Seamless integration to your Smart Home via <a href="https://www.apple.com/home-app/" target="_blank">Apple
-                Homekit</a>.
-            Simply add your device to your Home app on iPhone, and control the NuggetSpin on your bed, in your office,
-            through Siri, and even using <a href="https://support.apple.com/en-us/102313" target="_blank">customized
-                rules</a>.
-        </p>
+        <h1 style="margin-bottom: 2rem;">Gallery</h1>
+        <h2 style="margin-bottom: 2rem;">Overview</h2>
+        <img src="image/overview_1.jpg" alt="" style="width: 100%;">
+        <img src="image/overview_3.jpg" alt="" style="width: 100%;">
+        <img src="image/overview_2.png" alt="" style="width: 100%;">
+        <img src="image/overview_4.png" alt="" style="width: 100%;">
+
+
+
+        <h2 style="margin: 4rem 0 2rem 0;">Details</h2>
+        <p>Wiring</p>
+        <img src="image/wiring.png" alt="" style="width: 50%;">
+        <p>Battery box close-up</p>
+        <img src="image/bat_close.jpg" alt="" style="width: 50%;">
+        <p>PCB close-up</p>
+        <img src="image/pcb_close.png" alt="" style="width: 50%;">
+        <p>On demonstration day</p>
+        <img src="image/demo_day.png" alt="" style="width: 90%;">
+
+        <h2 style="margin: 4rem 0 2rem 0;">Connection of the product to HomeKit</h2>
+        <video width="100%" controls>
+            <source src="video/demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
         <div style="margin-bottom: 8rem;"></div>
+
+        
 
         <h1 style="margin-bottom: 2rem;">Fully Open Source.</h1>
         <div style="display: flex; width: 100%; justify-content: space-between;">
             <div class="card_3col" id="model_card">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <h2>Models</h2>
-                    <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
-                </div>
-                <p>All parts are fabricatable using regular FDM 3D printers.</p>
-                <img src="image/model_card.png" alt="" style="width: 100%;">
-            </div>
-            <div class="card_3col" id="electronic_card">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <h2>Electronic</h2>
-                    <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <h2>Models</h2>
+                        <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                    </div>
+                    <p>All parts are fabricatable using regular FDM 3D printers.</p>
                 </div>
 
-                <p>Don't need electronic expertise, chips are all accessible online.</p>
-                <img src="image/pcb_card.png" alt="" style="width: 100%;">
+                <img src="image/model_card.png" alt="" style="width: 100%; margin-bottom: 1rem">
+            </div>
+            <div class="card_3col" id="electronic_card">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <h2>Electronic</h2>
+                        <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                    </div>
+
+                    <p>Don't need electronic expertise, chips are all accessible online.</p>
+                </div>
+
+                <img src="image/pcb_card.png" alt="" style="width: 100%; margin-bottom: 1rem">
 
 
             </div>
             <div class="card_3col" id="assembly_card">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <h2>Assembly</h2>
-                    <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <h2>Assembly</h2>
+                        <img src="image/arr_icon.png" alt="" style="height: 1.6rem; margin-right: 1rem;">
+                    </div>
+                    <p>Easy-Peasy, assembly!</p>
                 </div>
-                <p>Easy-Peasy, assembly!</p>
-                <img src="image/assembly_card.png" alt="" style="width: 100%;">
+
+                <img src="image/assembly_card.png" alt="" style="width: 100%; margin-bottom: 1rem">
 
             </div>
         </div>
+        <div style="margin-bottom: 8rem;"></div>
+
+
+        <h1 style="margin-bottom: 2rem;">Process</h1>
+
+        <h2 style="margin: 2rem 0 2rem 0;">GEN1</h2>
+
+        <img src="image/v1_1.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v1_2.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v1_3.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v1_4.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v1_5.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v1_6.png" alt="" style="width: 80%;">
+
+        <h2 style="margin: 2rem 0 2rem 0;">GEN2</h2>
+        <img src="image/v2_1.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v2_2.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v2_3.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v2_4.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v2_5.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+        <img src="image/v2_6.png" alt="" style="width: 80%;">
+        <div style="margin-bottom: 6rem;"></div>
+
+        <h2 style="margin: 2rem 0 2rem 0;">GEN3</h2>
+        
+
+
         <div style="padding-top: 20rem;"></div>
     </div>
     <div style="background-color: #fbfbfb;">
-        <div style="padding: 4rem 20rem 10rem 20rem; opacity: 0.7;">
+        <div style="padding: 4rem 22rem 10rem 22rem; opacity: 0.7;">
             <p style="font-size: 0.8rem;">Site developed and maintained by <a style="font-size: 0.8rem;"
                     href="https://github.com/YueChengPeng">Yuecheng Peng</a>. Shout out
                 to Apple, who provides endless inspirations to my design.</p>

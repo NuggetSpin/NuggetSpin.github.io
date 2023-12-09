@@ -1,0 +1,11 @@
+Partlist exported from Team Hub: Yuecheng   Project: techin 511 pcb  Board: pcb demo1 v11 at 2023/11/29 15:22
+
+Qty Value           Device                      Package                                      Parts   Description                                                
+1                   XIAO-THRUHOLEHYBRID-SMT-THT XIAO-GENERIC-HYBRID-MODULE14P-2.54-21X17.8MM ESP32S3 Seeed Studio XIAO Series Through-hole Footprint and Symbol 
+1   5PIN_MOTOR      5PIN_MOTOR                  5PIN_MOTOR                                   U$4                                                                
+1   9V_BATTERY_PAD  9V_BATTERY_PAD              9V_BATTERY_PAD                               U$3                                                                
+1   CAP_47UF        CAP_47UF                    CAP_47UF                                     U$7                                                                
+1   DIODE1N4001     DIODE1N4001                 DIODE1N4001                                  U$6                                                                
+1   MP1584EN        MP1584EN                    MP1584EN                                     U$2                                                                
+1   SWITCH_3PIN     SWITCH_3PIN                 SWITCH_3PIN                                  U$5                                                                
+1   TB6612-BREAKOUT TB6612-BREAKOUT             TB6612_FT                                    U$1                                                                
